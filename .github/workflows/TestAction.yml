@@ -10,33 +10,32 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        - name: GitHub Action for SwiftLint (Only files changed in the PR)
-          uses: norio-nomura/action-swiftlint@3.2.1
-          env:
+      - name: GitHub Action for SwiftLint (Only files changed in the PR)
+        uses: norio-nomura/action-swiftlint@3.2.1
+        env:
            DIFF_BASE: ${{ github.base_ref }}
       - name: Build and test
-        run: |
-          swift test --enable-test-discovery --enable-code-coverage
+        run: swift test --enable-test-discovery --enable-code-coverage
         env:
          destination: ${{ matrix.destination }}
-         - name: Test coverage
-           uses: maxep/spm-lcov-action@0.3.0
+      - name: Test coverage
+        uses: maxep/spm-lcov-action@0.3.0
 
   ubuntu_test:
     name: Test - ubuntu
     runs-on: ubuntu-latest
     steps:
       - name: Setup Swift
-      uses: fwal/setup-swift@v1
-      with:
-        swift-version: "5.2"
+        uses: fwal/setup-swift@v1
+        with:
+          swift-version: "5.3"
       - name: Checkout
-      uses: actions/checkout@v2
+        uses: actions/checkout@v2
       - name: GitHub Action for SwiftLint (Only files changed in the PR)
-      uses: norio-nomura/action-swiftlint@3.2.1
-      env:
-        DIFF_BASE: ${{ github.base_ref }}
+        uses: norio-nomura/action-swiftlint@3.2.1
+        env:
+          DIFF_BASE: ${{ github.base_ref }}
       - name: Build and test
-      run: swift test --enable-test-discovery --enable-code-coverage
+        run: swift test --enable-test-discovery --enable-code-coverage
       - name: Test coverage
-      uses: maxep/spm-lcov-action@0.3.0
+        uses: maxep/spm-lcov-action@0.3.0
