@@ -4,9 +4,6 @@ jobs:
   macos_test:
     name: Test - macOS
     runs-on: macOS-latest
-    strategy:
-        matrix:
-          destination: ['platform=macOS']
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -16,8 +13,6 @@ jobs:
            DIFF_BASE: ${{ github.base_ref }}
       - name: Build and test
         run: swift test --enable-test-discovery --enable-code-coverage
-        env:
-         destination: ${{ matrix.destination }}
       - name: Test coverage
         uses: maxep/spm-lcov-action@0.3.0
 
